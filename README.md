@@ -7,4 +7,4 @@ This repository includes following files:
 - `ManualReviewGuide.md` is a simple guide and our protocol to manually identify bot service within GitHub platform.
 - `bot_service_all.csv` is the collected data of every found bot service.
 
-Community contribution/correction is always welcome, just start a PR :)
+Community contribution/correction is always welcome. Just start a PR :)
