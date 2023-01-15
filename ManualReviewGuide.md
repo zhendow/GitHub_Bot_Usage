@@ -20,9 +20,9 @@ In this case, its contributors have clearly indicated that this repository emplo
 
 Since bots are triggered by certain repository events, checking the most critical OSS development events and their *repository event actors* leads researchers to find bot services under this mechanism. GitHub's event timeline of Issue, Pull Request, Commit, and Release provides researchers access to identify bot services. Without spending too much effort on historical events, I focused on recent ones which also reflects whether the repository is running these bot services now. However for studies that are interested historical bot application, the timeframe needs to be extended. Particularly, in my study, for each type of event, we
 
--**Commit**: review the latest 20 Commits, and verify whether each Commit event actor, including the commenter of each commit, is a bot service.
--**Issue**: review the latest 10 open and 10 closed Issues in the Issue management system.  Verify if each Issue event actor and Issue commenter is a bot service.
--**Pull Request**: review the latest 10 open and 10 closed Pull Requests in the Pull Request management system. Verify if each Pull Request event actor and commenter is a bot service.
+- **Commit**: review the latest 20 Commits, and verify whether each Commit event actor, including the commenter of each commit, is a bot service.
+- **Issue**: review the latest 10 open and 10 closed Issues in the Issue management system.  Verify if each Issue event actor and Issue commenter is a bot service.
+- **Pull Request**: review the latest 10 open and 10 closed Pull Requests in the Pull Request management system. Verify if each Pull Request event actor and commenter is a bot service.
 
 ## Profile Metadata
 
