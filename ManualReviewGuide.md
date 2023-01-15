@@ -1,49 +1,36 @@
 # Manual Review Guide for Identifying GitHub Bot
 
-This is a guide to a simple process of manually identifying bot activities in GitHub. 
-Prior work suggests that to achieve optimal results for binary classification of bots in social or social-technical platforms, 
-several tiers of data collections would support more accurate results [1, 2]. 
-As bot accounts on GitHub do not have a friend network as other platforms, such as Twitter and Facebook, 
-this study employs three levels of data: comment text, account meta-data, event patterns of its timeline activities. 
-It is recommend to employ a machine learning classifier to analyze the comment texts [3], 
-and further manually review meta-data and event patterns on bot activities. 
-We operationalize the above classification steps within the protocol in this document. 
-Each coder should follow this protocol to identify and collect bot information.
+This is a guide that aims to provide improved results based on binary classifications of bots on the GitHub platforms, and therefore, as prior research suggested, several types of data are necessary for more accurate results [1, 2].  As recommended in these studies, a bot can be more accurately identified through a multi-tier identification process, typically including examining its "social network" like its following and follower relationships, comment and other generated text, account metadata, and activity patterns.
+
+This study later employs a three-tier of identification based on GitHub activity data, including repository comment text, account meta-data, and event patterns of its timeline activities. Particularly, many bot-based event actors on GitHub do not have a "social" network as other social media platforms, and moreover, the social network features in GitHub are not as significantly changing user behaviors as they were on other social platforms. Besides, the chance of a GitHub user who is a real human but not having any followers or following anyone, is significantly higher than other social-native platforms, e.g., Twitter and Facebook, due to GitHub's technical nature. Therefore, this study argues that social network is not a reliable tier of data for bot identification, and applying this data tier would neglect the characteristics of this social-technical platform. However, other generic data tiers still apply for the context of GitHub, for instance, examining its comment data [3].
+
+The remainder of this section introduces how the above multi-tier classification gets operationalized and provides a protocol for replicating this process for various research or practical interests. I followed this protocol to validate automated results and identify additional bots in my previous publication [4]. Given a target repository, there are several features to manually spot applications of bot services, including repository readme, Commit list, Issue list, Pull Request list, and Release list, as bots usually provide services for these tasks.
 
 ## Identifying Bot Activity in Repository Timeline
 
-Given a target repository, there are several features to manually spot usages of bot services, including repository readme, 
-Commit list, Issue list, Pull Request list, and Release list, as bot usually provide services for these tasks. 
-The following subsections describe each part of the repository respectively.
-
 ### Repository Readme
 
-Under the repository root directory, manually review the content of `readme.md` and `contributing.md` files. 
-Developers may introduce whether they have employed any bots in their typical/expected workflow, for instance:
+The first screening overall is to examine the *repository readme*s under a target repository root directory, including manually reviewing the content of `readme.md` and `contributing.md` files. According to our observation, substantial well-maintained and popular repositories provide these statements of whether the repository has employed any bots in their established workflow, for instance:
 
 > "for this repository, the contributing.md file demonstrates that a CLA bot would interact with the incoming Pull Requester to collect signatures." 
 
-Moreover, developers may provide information about bot usage such as Issue/Pull Request format, acknowledgment, and so on.
+In this case, its contributors have clearly indicated that this repository employs a \texttt{CLA} bot to solicit signatures from external contributions. Moreover, contributors often provide information about other bot applications such as Issue/Pull Request formatting, contribution acknowledgment, and so on.
 
 ### Repository Event Actor
 
-To our best knowledge, almost all bots on GitHub are designed by rule-based mechanisms and often triggered by certain repository events. 
-Therefore, checking most critical OSS development events on GitHub yields finding substantial bot services. 
-Events of Issue, Pull Request, Commit and Release provide us access to identify bot services. 
-Commit Review the latest 20 Commits, and verify whether each Commit event actor, including commenter on each Commit, is a bot service.
+Since bots are triggered by certain repository events, checking the most critical OSS development events and their *repository event actors* leads researchers to find bot services under this mechanism. GitHub's event timeline of Issue, Pull Request, Commit, and Release provides researchers access to identify bot services. Without spending too much effort on historical events, I focused on recent ones which also reflects whether the repository is running these bot services now. However for studies that are interested historical bot application, the timeframe needs to be extended. Particularly, in my study, for each type of event, we
 
-**Issue**: Review the latest 10 open and 10 closed Issues in the Issue management system. 
-Verify if each Issue event actor and Issue commenter is a bot service.
-
-**Pull Request**: Review the latest 10 open and 10 closed Pull Requests in the Pull Request management system. 
-Verify if each Pull Request event actor and commenter is a bot service.
+-**Commit**: review the latest 20 Commits, and verify whether each Commit event actor, including the commenter of each commit, is a bot service.
+-**Issue**: review the latest 10 open and 10 closed Issues in the Issue management system.  Verify if each Issue event actor and Issue commenter is a bot service.
+-**Pull Request**: review the latest 10 open and 10 closed Pull Requests in the Pull Request management system. Verify if each Pull Request event actor and commenter is a bot service.
 
 ## Profile Metadata
 
+From the above locations, when we found an event actor that was suspiciously repeating activity patterns or demonstrated that the content was automatically generated, we applied this multi-tier identification by first reviewing its account metadata such as GitHub profile or GitHub Marketplace/App listings, and examining its naming and description; second, reviewing the content of this GitHub account’s recent comments and activities; finally, for accounts that did not display their recent contributions, collected their activity records through GitHub API.
+
 ### Event Actor Overview
 
-When a coder reviews the event actors under each targeting event above,
-here are several indicators and features to employ while identifying if an account is a bot.
+Additionally, here are several extra indicators that help to confirm whether an event actor is a bot.
 
 - Being listed in GitHub Apps, Marketplace, and Actions
 - Having a `bot` tag next to the actor name
@@ -74,3 +61,4 @@ For each of the accounts that have been identified as a bot, record the followin
 1. Beskow, David M., and Kathleen M. Carley. "Bot-hunter: a tiered approach to detecting & characterizing automated activity on twitter." Conference paper. SBP-BRiMS: International Conference on Social Computing, Behavioral-Cultural Modeling and Prediction and Behavior Representation in Modeling and Simulation. Vol. 3. 2018.
 2. Kantepe, Mücahit, and Murat Can Ganiz. "Preprocessing framework for Twitter bot detection." 2017 International conference on computer science and engineering (ubmk). IEEE, 2017.
 3. Golzadeh, Mehdi, et al. "A ground-truth dataset and classification model for detecting bots in GitHub issue and PR comments." Journal of Systems and Software 175 (2021): 110911.
+4. Wang, Zhendong, Yi Wang, and David Redmiles. "From Specialized Mechanics to Project Butlers: the Usage of Bots in OSS Development." IEEE Software (2022).
